@@ -51,10 +51,19 @@ public class Bounce : MonoBehaviour {
         }
         rb2.AddForce(transform.up * jumpHeight);
         rb2.rotation = angle;
+        StopAllCoroutines();
         anim.SetBool("ground", true);
+        StartCoroutine(playAnim());
     }
 
-    private void OnCollisionExit2D(Collision2D collision) {
+    private IEnumerator playAnim() {
+        yield return new WaitForSeconds(.2f);
         anim.SetBool("ground", false);
+    }
+
+    public void resetPlayer() {
+        transform.position = new Vector3(0, -.8f, 0);
+        rb2.velocity = Vector2.zero;
+        angle = 0;
     }
 }
