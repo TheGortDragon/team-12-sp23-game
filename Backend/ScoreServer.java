@@ -27,7 +27,6 @@ public class ScoreServer
     public static void main(String[] args)
     {
         ss = new ScoreServer();
-        ss.displayScores();
 
         ScoreServer scoreServer = new ScoreServer();
         try {
@@ -35,6 +34,20 @@ public class ScoreServer
             server.createContext("/scores", new GameHandler());
             server.setExecutor(null);
             server.start();
+
+            boolean running = true;
+            int count = 0;
+            while(running)
+            {
+                try{
+                    Thread.sleep(5000);
+                    System.out.println("Still alive. Count: " + count);
+                    count++;
+                } catch(InterruptedException e)
+                {
+
+                }
+            }
 
         } catch(IOException e)
         {
@@ -70,6 +83,7 @@ public class ScoreServer
                     ComparableScore newScore = ss.parseJSON(sb.toString());
                     ss.addScore(newScore);
                     ss.writeToFile();
+                    ss.displayScores();
 
                     response = "Data received.";
                     t.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
@@ -103,7 +117,6 @@ public class ScoreServer
             addScore("AAAAAAAA", 99999999);
         }
         recallFromFile();
-        System.out.println(getScoresAsJSON());
     }
 
     public void addScore(String name, int score)
