@@ -8,6 +8,9 @@ import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+
+import javax.swing.RepaintManager;
+
 import java.lang.StringBuilder;
 
 
@@ -27,6 +30,14 @@ public class ScoreServer
     public static void main(String[] args)
     {
         ss = new ScoreServer();
+
+        if(args.length == 1)
+        {
+            if(args[0].equals("clear"))
+            {
+                ss.clearScoresOnFile();
+            }
+        }
 
         ScoreServer scoreServer = new ScoreServer();
         try {
@@ -84,9 +95,14 @@ public class ScoreServer
                     ss.addScore(newScore);
                     ss.writeToFile();
                     ss.displayScores();
+                    
+
+                    System.out.println("Sending response:");
 
                     response = ss.getScoresAsJSON();
-                    //t.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+                    System.out.println(response);
+
+                    t.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
                     t.sendResponseHeaders(200, response.getBytes().length);
                     os = t.getResponseBody();
                     os.write(response.getBytes());
@@ -112,10 +128,6 @@ public class ScoreServer
 
     public ScoreServer()
     {
-        for(int i = 0; i < MAX_SCORES; i++)
-        {
-            addScore("AAAAAAAA", 99999999);
-        }
         recallFromFile();
     }
 
@@ -185,12 +197,13 @@ public class ScoreServer
     public ComparableScore parseJSON(String json)
     {
         json = json.replaceAll(" ", "");
+        json = json.replaceAll("[\r\n]", "");
         int start = json.indexOf("\"Name\":\"") + 8;
         int end = json.indexOf("\",");
         String nameString = json.substring(start, end);
 
         start = json.indexOf("\"Score\":") + 8;
-        end = json.indexOf("}") - 2;
+        end = json.indexOf("}");
         String scoreString = json.substring(start, end);
         int score = Integer.valueOf(scoreString);
         return new ComparableScore(nameString, score);
@@ -198,6 +211,33 @@ public class ScoreServer
 
     public void writeToFile()
     {
+        try{
+            File file = new File("scores");
+            file.createNewFile(); //create the file if it does not exist
+            FileWriter fw = new FileWriter(file, false);
+            PrintWriter pw = new PrintWriter(fw);
+            pw.append(scores.get(0).getStorageString());
+            for(int i = 1; i < scores.size(); i++)
+            {
+                pw.append("\n");
+                pw.append(scores.get(i).getStorageString());
+            }
+            pw.close();
+            fw.close();
+
+        } catch(IOException e)
+        {
+            System.out.println("File operation failed.");
+        }
+    }
+
+    public void clearScoresOnFile()
+    {
+        scores.clear();
+        for(int i = 0; i < MAX_SCORES; i++)
+        {
+            addScore("AAAAAAAA", 99999999);
+        }
         try{
             File file = new File("scores");
             file.createNewFile(); //create the file if it does not exist

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -21,7 +22,7 @@ public class ScoreManagerScript : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.P))
         {
             Debug.Log("Sending POST request.");
-            sendPOSTRequest(testJSON);  
+            sendPOSTRequest(writeJSON("Bob", 234846));  
         }
         if(Input.GetKeyDown(KeyCode.G))
         {
@@ -30,9 +31,22 @@ public class ScoreManagerScript : MonoBehaviour
         }
     }
 
-    string writeJSON()
+    string sanitizeString(string text)
     {
-        return testJSON;
+        return "";
+    }
+
+    string writeJSON(string name, int score)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.Append("{\"Name\":\"");
+        sb.Append(name);
+        sb.Append("\",\"Score\":");
+        sb.Append(score);
+        sb.Append("}");
+        return sb.ToString();
+
+
     }
 
     
