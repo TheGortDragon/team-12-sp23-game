@@ -85,8 +85,8 @@ public class ScoreServer
                     ss.writeToFile();
                     ss.displayScores();
 
-                    response = "Data received.";
-                    t.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
+                    response = ss.getScoresAsJSON();
+                    //t.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
                     t.sendResponseHeaders(200, response.getBytes().length);
                     os = t.getResponseBody();
                     os.write(response.getBytes());
