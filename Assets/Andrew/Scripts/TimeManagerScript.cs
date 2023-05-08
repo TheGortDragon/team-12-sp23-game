@@ -47,11 +47,13 @@ public class TimeManagerScript : MonoBehaviour
         return sb.ToString();
     }
 
+    //starts or resets the timer
     public void timeStart()
     {
         startTime = (int) (Time.time * 1000);
     }
 
+    //logs the end time
     public void timeStop()
     {
         endTime = (int) (Time.time * 1000) - startTime;

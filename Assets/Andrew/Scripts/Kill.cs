@@ -8,11 +8,13 @@ public class Kill : MonoBehaviour
     private Bounce bounce;
     public float outOfBounds;
     public GameObject winCon;
+    public TimeManagerScript timeManager;
     [SerializeField]
     private float distanceToWin;
 
     void Start()
     {
+        timeManager = GameObject.Find("TimeManager").GetComponent<TimeManagerScript>();
         player = GameObject.Find("Player");
         bounce = player.GetComponent<Bounce>();
         winCon = GameObject.FindGameObjectWithTag("Win_flag");
@@ -27,10 +29,12 @@ public class Kill : MonoBehaviour
         if (player.transform.position.y < outOfBounds)
         {
             bounce.resetPlayer();
+            timeManager.timeStart();
         }
         if (Input.GetKey(KeyCode.Escape))
         {
             bounce.resetPlayer();
+            timeManager.timeStart();
         }
 
         float distanceToWinCon = Vector3.Distance(
@@ -42,6 +46,7 @@ public class Kill : MonoBehaviour
             Debug.Log("close to flag");
 
             bounce.resetPlayer();
+            timeManager.timeStop();
 
             //level end
         }
