@@ -40,7 +40,10 @@ public class Kill : MonoBehaviour
         if (distanceToWinCon <= distanceToWin)
         {
             Debug.Log("close to flag");
+
             bounce.resetPlayer();
+
+            //level end
         }
     }
 
