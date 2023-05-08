@@ -4,12 +4,18 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Barrier
+  - platform
+  - enemy
+  - enemy_spawner
+  - respawn_waypoint
+  - Platform
+  - Win_flag
+  - UI
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Text
   - Water
   - UI
   - 

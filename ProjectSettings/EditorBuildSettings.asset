@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/David/DavidTest.unity
     guid: c634b6b815689d44aac336f78c465082
   - enabled: 1
@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Alex/AlexTest.unity
     guid: 5d4b45569b860004cb256862b22f4d5a
   - enabled: 0
-    path: Assets/Jesus/JesusTest.unity
+    path: Assets/Jesus/Assets/JesusTest.unity
     guid: 88df531be6af19541bee745d136f621f
   m_configObjects: {}

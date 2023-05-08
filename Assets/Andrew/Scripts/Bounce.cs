@@ -10,11 +10,13 @@ public class Bounce : MonoBehaviour {
     public float jumpHeight;
     private float jumpHoldDuration;
     private bool jumpBoost;
+    GameObject winCon;
 
     private float angle;
 
     // Start is called before the first frame update
     void Start() {
+        winCon = GameObject.FindGameObjectWithTag("Win_flag");
         rb2 = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
         jumpHoldDuration = 0;
@@ -33,6 +35,7 @@ public class Bounce : MonoBehaviour {
         if (Input.GetKey(KeyCode.A)) {
             angle += 10 * Time.deltaTime;
         }
+
     }
 
     void FixedUpdate() {
