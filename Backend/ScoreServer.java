@@ -94,7 +94,7 @@ public class ScoreServer
                     
                     break;
                 case "GET": //send data to client
-                    System.out.println("Method identified as POST");
+                    System.out.println("Method identified as GET");
 
                     response = ss.getScoresAsJSON();
                     t.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
