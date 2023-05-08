@@ -27,13 +27,55 @@ public class ScoreManagerScript : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.G))
         {
             Debug.Log("Sending GET request.");
-            sendGETRequest();
+            //sendGETRequest();
+            getScores();
+        }
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            Tuple<string, string>[] scores = getResponse();
+            StringBuilder sb = new StringBuilder();
+            for(int i = 0; i < 10; i++)
+            {
+                sb.Append(scores[i].name);
+                sb.Append(" ");
+                sb.Append(scores[i].value);
+                sb.Append("\n");
+            }
+            Debug.Log(sb.ToString());
         }
     }
 
+    public void sendScore(string name, int score)
+    {
+        string newjson = writeJSON(name, score);
+        newjson = sanitizeString(newjson);
+        sendPOSTRequest(newjson);
+    }
+
+    public void getScores()
+    {
+        sendGETRequest();        
+    }
+
+    public Tuple<string, string>[] getResponse()
+    {
+        Tuple<string, string>[] scores = new Tuple<string, string>[10];
+        Scoreboard s = JsonUtility.FromJson<Scoreboard>(mostRecentResponse);
+
+        string[] names = s.Names.Split(',');
+        string[] values = s.Scores.Split(',');
+        for(int i = 0; i < 10; i++)
+        {
+            Tuple<string, string> score = new Tuple<string, string>(names[i], values[i]);
+            scores[i] = score;
+        }
+        return scores;
+    }
+
+
     string sanitizeString(string text)
     {
-        return "";
+        return text.Replace("\r", "").Replace("\n", "");
     }
 
     string writeJSON(string name, int score)
@@ -46,7 +88,6 @@ public class ScoreManagerScript : MonoBehaviour
         sb.Append("}");
         return sb.ToString();
 
-
     }
 
     
@@ -54,7 +95,7 @@ public class ScoreManagerScript : MonoBehaviour
     void sendGETRequest()
     {
         StartCoroutine(getRequest(url));
-        Debug.Log(mostRecentResponse);
+        //Debug.Log(mostRecentResponse);
     }
 
     void sendPOSTRequest(string json)
@@ -109,4 +150,23 @@ public class ScoreManagerScript : MonoBehaviour
             }
         }
     }
+}
+
+// Custom tuple class
+public class Tuple<T1, T2>
+{
+    public T1 name { get; }
+    public T2 value { get; }
+
+    public Tuple(T1 item1, T2 item2)
+    {
+        name = item1;
+        value = item2;
+    }
+}
+
+public class Scoreboard
+{
+    public string Names;
+    public string Scores;
 }
