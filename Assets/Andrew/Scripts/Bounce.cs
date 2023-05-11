@@ -5,7 +5,8 @@ using UnityEngine;
 public class Bounce : MonoBehaviour {
     private Animator anim;
     private Rigidbody2D rb2;
-    
+    private AudioSource Asource;
+
     public float jumpBonus;
     public float jumpHeight;
     private float jumpHoldDuration;
@@ -19,6 +20,7 @@ public class Bounce : MonoBehaviour {
         winCon = GameObject.FindGameObjectWithTag("Win_flag");
         rb2 = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
+        Asource = GetComponent<AudioSource>();
         jumpHoldDuration = 0;
         angle = 0;
     }
@@ -28,12 +30,11 @@ public class Bounce : MonoBehaviour {
         if (jumpBoost) {
             jumpHoldDuration -= Time.deltaTime;
         }
-
         if (Input.GetKey(KeyCode.D)) {
-            angle -= 10 * Time.deltaTime;
+            angle -= 20 * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.A)) {
-            angle += 10 * Time.deltaTime;
+            angle += 20 * Time.deltaTime;
         }
 
     }
@@ -41,9 +42,8 @@ public class Bounce : MonoBehaviour {
     void FixedUpdate() {
         if (jumpBoost) {
             rb2.AddForce(transform.up * jumpBonus);
-            rb2.rotation = angle;
-            
         }
+        rb2.rotation = angle;
         anim.SetBool("boost", jumpBoost);
         anim.SetFloat("yVelocity", rb2.velocity.y);
     }
@@ -52,8 +52,8 @@ public class Bounce : MonoBehaviour {
         if (Input.GetKey(KeyCode.Space)) {
             jumpHoldDuration = 2;
         }
+        Asource.Play();
         rb2.AddForce(transform.up * jumpHeight);
-        rb2.rotation = angle;
         StopAllCoroutines();
         anim.SetBool("ground", true);
         StartCoroutine(playAnim());

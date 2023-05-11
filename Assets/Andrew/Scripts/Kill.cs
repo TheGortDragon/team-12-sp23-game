@@ -47,6 +47,7 @@ public class Kill : MonoBehaviour
 
             bounce.resetPlayer();
             timeManager.timeStop();
+            StartCoroutine(GameObject.Find("Fade").GetComponent<DrawMap>().FadeOut());
 
             //level end
         }

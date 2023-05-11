@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6983274553052295199}
   - component: {fileID: 6983274553052295192}
   - component: {fileID: 6983274553052295196}
+  - component: {fileID: 2342640059568111411}
   m_Layer: 6
   m_Name: square_enemy
   m_TagString: Untagged
@@ -156,3 +157,24 @@ MonoBehaviour:
   speed: 5
   distance: 5
   unitsToHero: 0.1
+--- !u!95 &2342640059568111411
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6983274553052295193}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 841093e3ffe6f884fb718b96c5e75694, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
