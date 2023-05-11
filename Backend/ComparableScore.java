@@ -4,11 +4,13 @@ public class ComparableScore implements Comparable<ComparableScore>
 {
     private String name;
     private int score;
+    private int level;
 
-    public ComparableScore(String newName, int newScore) //add functionality for date? earlier scores break ties?
+    public ComparableScore(String newName, int newScore, int newLevel) //add functionality for date? earlier scores break ties?
     {
         name = newName;
         score = newScore;
+        level = newLevel;
     }
 
     public String getName()
@@ -19,6 +21,11 @@ public class ComparableScore implements Comparable<ComparableScore>
     public int getScoreValue()
     {
         return score;
+    }
+
+    public int getLevel()
+    {
+        return level;
     }
 
     public String getScoreText()

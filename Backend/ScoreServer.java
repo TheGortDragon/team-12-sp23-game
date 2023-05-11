@@ -22,8 +22,10 @@ import com.sun.net.httpserver.Headers;
 
 public class ScoreServer
 {
-    private final int MAX_SCORES = 10;
-    private ArrayList<ComparableScore> scores = new ArrayList<ComparableScore>();
+    public static final int MAX_SCORES = 10;
+    public static final int LEVEL_COUNT = 3;
+    private ArrayList<ArrayList<ComparableScore>> scores = new ArrayList<ArrayList<ComparableScore>>();
+    //private ArrayList<ComparableScore> scores = new ArrayList<ComparableScore>();
 
     public static ScoreServer ss;
     
@@ -35,8 +37,12 @@ public class ScoreServer
         {
             if(args[0].equals("clear"))
             {
-                ss.clearScoresOnFile();
+                for(int i = 1; i <= ScoreServer.LEVEL_COUNT; i++)
+                {
+                    ss.clearScoresOnFile(i);
+                }
             }
+            
         }
 
         ScoreServer scoreServer = new ScoreServer();
@@ -93,8 +99,8 @@ public class ScoreServer
 
                     ComparableScore newScore = ss.parseJSON(sb.toString());
                     ss.addScore(newScore);
-                    ss.writeToFile();
-                    ss.displayScores();
+                    ss.writeToFile(newScore.getLevel());
+                    ss.displayScores(newScore.getLevel());
                     
 
                     System.out.println("Sending response:");
@@ -128,56 +134,67 @@ public class ScoreServer
 
     public ScoreServer()
     {
-        recallFromFile();
+        
+        for(int i = 0; i < LEVEL_COUNT; i++)
+        {
+            scores.add(new ArrayList<ComparableScore>());
+        }
+        for(int i = 0; i < LEVEL_COUNT; i++)
+        {
+            recallFromFile(i + 1);
+        }
     }
 
-    public void addScore(String name, int score)
+    public void addScore(String name, int score, int level)
     {
-        ComparableScore newScore = new ComparableScore(name, score);
-        scores.add(newScore);
-        Collections.sort(scores); //Collections.sort(scores, Collections.reverseOrder()); if order is reversed
+        ComparableScore newScore = new ComparableScore(name, score, level);
+        scores.get(level - 1).add(newScore);
+        Collections.sort(scores.get(level - 1)); //Collections.sort(scores, Collections.reverseOrder()); if order is reversed
     }
 
     public void addScore(ComparableScore score)
     {
-        scores.add(score);
-        Collections.sort(scores);
+        scores.get(score.getLevel() - 1).add(score);
+        ArrayList<ComparableScore> theseScores = scores.get(score.getLevel() - 1);
+        Collections.sort(theseScores);
+        scores.set(score.getLevel() - 1, theseScores);
+        
     }
 
-    public String getNames()
+    public String getNames(int level)
     {
         StringBuilder sb = new StringBuilder();
-        sb.append(scores.get(0).getName());
+        sb.append(scores.get(level - 1).get(0).getName());
         for(int i = 1; i < MAX_SCORES; i++)
         {
             sb.append(",");
-            sb.append(scores.get(i).getName());
+            sb.append(scores.get(level - 1).get(i).getName());
         }
         return sb.toString();
     }
 
     //Gets the scores as a string of comma separated numbers
-    public String getScores()
+    public String getScores(int level)
     {
         StringBuilder sb = new StringBuilder();
-        sb.append(scores.get(1).getScoreText());
+        sb.append(scores.get(level - 1).get(0).getScoreText());
         for(int i = 1; i < MAX_SCORES; i++)
         {
             sb.append(",");
-            sb.append(scores.get(i).getScoreText());
+            sb.append(scores.get(level - 1).get(i).getScoreText());
         }
         return sb.toString();
     }
 
     //Writes the scoreboard to the console
-    public void displayScores()
+    public void displayScores(int level)
     {
         StringBuilder sb = new StringBuilder();
-        sb.append(scores.get(0).getDisplayString());
+        sb.append(scores.get(level - 1).get(0).getDisplayString());
         for(int i = 1; i < MAX_SCORES; i++)
         {
             sb.append("\n");
-            sb.append(scores.get(i).getDisplayString());
+            sb.append(scores.get(level - 1).get(i).getDisplayString());
             
         }
         System.out.println(sb.toString());
@@ -186,11 +203,17 @@ public class ScoreServer
     public String getScoresAsJSON()
     {
         StringBuilder sb = new StringBuilder();
-        sb.append("{\n\"Names\":\"");
-        sb.append(getNames());
-        sb.append("\",\n\"Scores\":\"");
-        sb.append(getScores());
-        sb.append("\"\n}");
+        sb.append("{");
+        for(int i = 1; i <= LEVEL_COUNT; i++)
+        {
+            sb.append("\n\"Names" + i + "\":\"");
+            sb.append(getNames(i));
+            sb.append("\",\n\"Scores" + i +  "\":\"");
+            sb.append(getScores(i));
+            sb.append("\",");
+        }
+        sb.setLength(sb.length() - 1);
+        sb.append("\n}");
         return sb.toString();
     }
 
@@ -199,28 +222,33 @@ public class ScoreServer
         json = json.replaceAll(" ", "");
         json = json.replaceAll("[\r\n]", "");
         int start = json.indexOf("\"Name\":\"") + 8;
-        int end = json.indexOf("\",");
+        int end = json.indexOf("\",", start);
         String nameString = json.substring(start, end);
 
         start = json.indexOf("\"Score\":") + 8;
-        end = json.indexOf("}");
+        end = json.indexOf(",", start);
         String scoreString = json.substring(start, end);
         int score = Integer.valueOf(scoreString);
-        return new ComparableScore(nameString, score);
+
+        start = json.indexOf("\"Level\":") + 8;
+        end = json.indexOf("}", start);
+        String levelString = json.substring(start, end);
+        int level = Integer.valueOf(levelString);
+        return new ComparableScore(nameString, score, level);
     }
 
-    public void writeToFile()
+    public void writeToFile(int level)
     {
         try{
-            File file = new File("scores");
+            File file = new File("scores" + level);
             file.createNewFile(); //create the file if it does not exist
             FileWriter fw = new FileWriter(file, false);
             PrintWriter pw = new PrintWriter(fw);
-            pw.append(scores.get(0).getStorageString());
-            for(int i = 1; i < scores.size(); i++)
+            pw.append(scores.get(level - 1).get(0).getStorageString());
+            for(int i = 1; i < scores.get(level - 1).size(); i++)
             {
                 pw.append("\n");
-                pw.append(scores.get(i).getStorageString());
+                pw.append(scores.get(level - 1).get(i).getStorageString());
             }
             pw.close();
             fw.close();
@@ -231,23 +259,27 @@ public class ScoreServer
         }
     }
 
-    public void clearScoresOnFile()
+    public void clearScoresOnFile(int level)
     {
-        scores.clear();
+        //scores.clear();
+        for(int i = 0; i < LEVEL_COUNT; i++)
+        {
+            scores.set(level - 1, new ArrayList<ComparableScore>());
+        }
         for(int i = 0; i < MAX_SCORES; i++)
         {
-            addScore("AAAAAAAA", 99999999);
+            addScore("AAAAAAAA", 99999999, level);
         }
         try{
-            File file = new File("scores");
+            File file = new File("scores" + (level));
             file.createNewFile(); //create the file if it does not exist
             FileWriter fw = new FileWriter(file, false);
             PrintWriter pw = new PrintWriter(fw);
-            pw.append(scores.get(0).getStorageString());
-            for(int i = 1; i < scores.size(); i++)
+            pw.append(scores.get(level - 1).get(0).getStorageString());
+            for(int i = 1; i < MAX_SCORES; i++)
             {
                 pw.append("\n");
-                pw.append(scores.get(i).getStorageString());
+                pw.append(scores.get(level - 1).get(i).getStorageString());
             }
             pw.close();
             fw.close();
@@ -258,20 +290,20 @@ public class ScoreServer
         }
     }
 
-    public void recallFromFile()
+    public void recallFromFile(int level)
     {
         try{
             ArrayList<ComparableScore> newScores = new ArrayList<ComparableScore>();
-            File file = new File("scores");
+            File file = new File("scores" + level);
             Scanner s = new Scanner(file);
             while(s.hasNextLine())
             {
                 String[] data = s.nextLine().split(",");
                 String name = data[0];
                 int score = Integer.valueOf(data[1]);
-                newScores.add(new ComparableScore(name, score));
+                newScores.add(new ComparableScore(name, score, level));
             }
-            scores = newScores;
+            scores.set(level - 1, newScores);
             s.close();
 
         } catch(IOException e)
