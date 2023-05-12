@@ -9,6 +9,7 @@ public class ScoreManagerScript : MonoBehaviour
     public string url = "associated-gr.at.ply.gg:53538/scores";
     public string testJSON = "{\"Name\":\"Alex\",\"Score\":234846}";
     public string mostRecentResponse = "";
+    public const int LEVEL_COUNT = 3; 
 
     // Start is called before the first frame update
     void Start()
@@ -57,19 +58,35 @@ public class ScoreManagerScript : MonoBehaviour
         sendGETRequest();        
     }
 
-    public Tuple<string, string>[] getResponse()
+    public string[][][] getResponse()
     {
-        Tuple<string, string>[] scores = new Tuple<string, string>[10];
         Scoreboard s = JsonUtility.FromJson<Scoreboard>(mostRecentResponse);
+        
+        string[] names1 = s.Names1.Split(',');
+        string[] values1 = s.Scores1.Split(',');
+        string[] names2 = s.Names2.Split(',');
+        string[] values2 = s.Scores2.Split(',');
+        string[] names3 = s.Names3.Split(',');
+        string[] values3 = s.Scores3.Split(',');
+        string[][][] scoreboard = string[3][names.Length][2];
 
-        string[] names = s.Names.Split(',');
-        string[] values = s.Scores.Split(',');
+
         for(int i = 0; i < 10; i++)
         {
-            Tuple<string, string> score = new Tuple<string, string>(names[i], values[i]);
-            scores[i] = score;
+            scoreboard[0][i][0] = names1[i];
+            scoreboard[0][i][1] = values1[i];
         }
-        return scores;
+        for(int i = 0; i < 10; i++)
+        {
+            scoreboard[1][i][0] = names2[i];
+            scoreboard[1][i][1] = values2[i];
+        }
+        for(int i = 0; i < 10; i++)
+        {
+            scoreboard[2][i][0] = names3[i];
+            scoreboard[2][i][1] = values3[i];
+        }
+        return scoreboard;
     }
 
 
@@ -167,6 +184,10 @@ public class Tuple<T1, T2>
 
 public class Scoreboard
 {
-    public string Names;
-    public string Scores;
+    public string Names1;
+    public string Scores1;
+    public string Names2;
+    public string Scores2;
+    public string Names3;
+    public string Scores3;
 }
