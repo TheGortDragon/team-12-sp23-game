@@ -12,6 +12,7 @@ public class square_enemy : MonoBehaviour
     public GameObject square_enemy_GO;
     public Vector2 movement;
     public Transform[] waypoints;
+
     [SerializeField]
     public float threshold = .05f;
     public enemy_spawner spawner;
@@ -20,10 +21,16 @@ public class square_enemy : MonoBehaviour
     public float distance;
     private float leftBound;
     private float rightBound;
-    private int direction = 1;
+
+    // private int direction = 1;
     private bool goingDown = false;
+    private bool goingUp = false;
+
     private Rigidbody2D rb;
     private int currentWaypoint = 0;
+
+    [SerializeField]
+    private float gravityScale = 0;
 
     [SerializeField]
     private float unitsToHero = 0;
@@ -46,7 +53,7 @@ public class square_enemy : MonoBehaviour
 
     void Update()
     {
-        if (transform.position.y < -100)
+        if (transform.position.y < -100 || transform.position.y > 20)
         {
             spawner.minusEnemy();
             Destroy(gameObject);
@@ -61,6 +68,11 @@ public class square_enemy : MonoBehaviour
             {
                 goDown();
                 yield break; // exit the coroutine
+            }
+            else if (goingUp)
+            {
+                goUp();
+                yield break;
             }
             Vector2 target = waypoints[currentWaypoint].position;
 
@@ -78,15 +90,28 @@ public class square_enemy : MonoBehaviour
 
             float heroX = hero.transform.position.x;
             float squareX = square_enemy_GO.transform.position.x;
+            float heroY = hero.transform.position.y;
+            float squareY = square_enemy_GO.transform.position.y;
 
-            if (Mathf.Abs(heroX - squareX) < unitsToHero)
+            if (Mathf.Abs(heroX - squareX) < unitsToHero && heroY < squareY)
             {
                 goingDown = true;
+            }
+            else if (Mathf.Abs(heroX - squareX) < unitsToHero && heroY > squareY)
+            {
+                Debug.Log("going up");
+
+                // goUp();
+                goingUp = true;
             }
 
             if (goingDown)
             {
                 goDown();
+            }
+            else if (goingUp)
+            {
+                goUp();
             }
 
             yield return new WaitForFixedUpdate();
@@ -100,7 +125,14 @@ public class square_enemy : MonoBehaviour
         // Debug.Log("same x value");
         rb.velocity = Vector2.zero;
         rb.mass = .25f;
-        rb.gravityScale = 150f;
+        rb.gravityScale = gravityScale;
+    }
+
+    private void goUp()
+    {
+        rb.velocity = Vector2.up * speed;
+
+        Debug.Log("going up");
     }
 
     void OnCollisionEnter2D(Collision2D collision)
