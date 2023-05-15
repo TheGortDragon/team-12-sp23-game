@@ -15,13 +15,17 @@ public class TimeManagerScript : MonoBehaviour
     {
         tmp = GameObject.Find("TimeText");
         tmp_text = tmp.GetComponent<TextMeshProUGUI>();
+        timeStart();
     }
 
     // Update is called once per frame
     void Update()
     {
         int currTime = (int) (Time.time * 1000) - startTime;
-        tmp_text.text = getFormattedTime(currTime);
+        Debug.Log("currTime is " + currTime);
+        string formattedTime = getFormattedTime(currTime);
+        Debug.Log("formattedTime is " + formattedTime);
+        tmp_text.text = formattedTime;
         
     }
 
@@ -50,12 +54,15 @@ public class TimeManagerScript : MonoBehaviour
     //starts or resets the timer
     public void timeStart()
     {
+        Debug.Log("Time set to 0");
         startTime = (int) (Time.time * 1000);
+        Debug.Log("startTime is " + startTime);
     }
 
     //logs the end time
     public void timeStop()
     {
+        Debug.Log("Logged end time");
         endTime = (int) (Time.time * 1000) - startTime;
     }
 }

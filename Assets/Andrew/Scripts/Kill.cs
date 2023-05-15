@@ -25,8 +25,8 @@ public class Kill : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Player position: " + player.transform.position);
-        Debug.Log("Win_con position: " + winCon.transform.position);
+        //Debug.Log("Player position: " + player.transform.position);
+        //Debug.Log("Win_con position: " + winCon.transform.position);
 
         if (player.transform.position.y < outOfBounds)
         {
@@ -49,8 +49,10 @@ public class Kill : MonoBehaviour
             Debug.Log("close to flag");
             playWinSound();
             bounce.resetPlayer();
-            timeManager.timeStop();
+            //timeManager.timeStop();
+            
             StartCoroutine(GameObject.Find("Fade").GetComponent<DrawMap>().FadeOut());
+            timeManager.timeStart();
 
             //level end
         }
