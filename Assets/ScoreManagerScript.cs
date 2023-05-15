@@ -14,12 +14,13 @@ public class ScoreManagerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
         if(Input.GetKeyDown(KeyCode.P))
         {
             Debug.Log("Sending POST request.");
@@ -43,6 +44,7 @@ public class ScoreManagerScript : MonoBehaviour
             }
             Debug.Log(sb.ToString());
         }
+        */
     }
 
     public void sendScore(string name, int score, int level)

@@ -8,9 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/David/DavidTest.unity
     guid: c634b6b815689d44aac336f78c465082
-  - enabled: 1
-    path: Assets/Andrew/AndrewTest.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: Assets/Alex/AlexTest.unity
     guid: 5d4b45569b860004cb256862b22f4d5a

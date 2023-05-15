@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class SkipButtonScript : MonoBehaviour
 {
@@ -25,5 +26,6 @@ public class SkipButtonScript : MonoBehaviour
     public void TaskOnClick()
     {
         Debug.Log("Skip pressed.");
+        SceneManager.LoadScene(0);
     }
 }
