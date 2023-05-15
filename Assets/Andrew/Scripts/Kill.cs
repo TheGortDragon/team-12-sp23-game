@@ -9,6 +9,8 @@ public class Kill : MonoBehaviour
     public float outOfBounds;
     public GameObject winCon;
     public TimeManagerScript timeManager;
+    public AudioSource winGame;
+    public AudioSource loseGame;
     [SerializeField]
     private float distanceToWin;
 
@@ -30,6 +32,7 @@ public class Kill : MonoBehaviour
         {
             bounce.resetPlayer();
             timeManager.timeStart();
+            playLoseSound();
         }
         if (Input.GetKey(KeyCode.Escape))
         {
@@ -44,7 +47,7 @@ public class Kill : MonoBehaviour
         if (distanceToWinCon <= distanceToWin)
         {
             Debug.Log("close to flag");
-
+            playWinSound();
             bounce.resetPlayer();
             timeManager.timeStop();
             StartCoroutine(GameObject.Find("Fade").GetComponent<DrawMap>().FadeOut());
@@ -59,5 +62,15 @@ public class Kill : MonoBehaviour
         //     Debug.Log("ded");
         //     bounce.resetPlayer();
         // }
+    }
+
+    public void playWinSound()
+    {
+        winGame.Play();
+    }
+
+    public void playLoseSound()
+    {
+        loseGame.Play();
     }
 }

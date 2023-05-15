@@ -18,6 +18,8 @@ public class boss_script : MonoBehaviour
     public Transform leftBarrel;
     public Transform rightBarrel;
 
+    public AudioSource enemyHit;
+
     // private float lastShootTime = 0f;
 
     public float pushForce = 10f;
@@ -112,6 +114,12 @@ public class boss_script : MonoBehaviour
             Rigidbody2D playerRigidbody = collision.gameObject.GetComponent<Rigidbody2D>();
             Vector2 bossVelocity = GetComponent<Rigidbody2D>().velocity;
             playerRigidbody.AddForce(-bossVelocity * pushForce, ForceMode2D.Impulse);
+            playEnemySound();
         }
+    }
+
+    public void playEnemySound()
+    {
+        enemyHit.Play();
     }
 }

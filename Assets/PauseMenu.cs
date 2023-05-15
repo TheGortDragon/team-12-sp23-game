@@ -16,7 +16,7 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             if (GameIsPaused) 
             {
@@ -34,6 +34,15 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(false);
         //allow for movement
         Time.timeScale = 1f;
+        AudioSource[] audios = FindObjectsOfType<AudioSource>();
+        foreach (AudioSource a in audios)
+        {
+            if (a.playOnAwake)
+            {
+                a.Play();
+            }
+
+        }
         //unpause 
         GameIsPaused = false;
     }
@@ -44,6 +53,12 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         // don't allow for movement
         Time.timeScale = 0f;
+
+        AudioSource[] audios = FindObjectsOfType<AudioSource>();
+        foreach (AudioSource a in audios)
+        {
+            a.Pause();
+        }
         //pause game 
         GameIsPaused = true;
     }
@@ -54,15 +69,4 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene("DavidTest", LoadSceneMode.Single);
     }
-
-    public void QuitGame() 
-    {
-        Debug.Log("Quitting game...");
-        // 
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #endif
-            Application.Quit();
-    }
-
 }
