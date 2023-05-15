@@ -23,7 +23,7 @@ public class ScoreManagerScript : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.P))
         {
             Debug.Log("Sending POST request.");
-            sendPOSTRequest(writeJSON("Bob", 234846));  
+            sendPOSTRequest(writeJSON("Bob", 234846, 1));  
         }
         if(Input.GetKeyDown(KeyCode.G))
         {
@@ -33,22 +33,21 @@ public class ScoreManagerScript : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.T))
         {
-            Tuple<string, string>[] scores = getResponse();
+            string[,,] scores = getResponse();
             StringBuilder sb = new StringBuilder();
             for(int i = 0; i < 10; i++)
             {
-                sb.Append(scores[i].name);
+                sb.Append(scores[0, i, 0]);
                 sb.Append(" ");
-                sb.Append(scores[i].value);
-                sb.Append("\n");
+                sb.Append(scores[0, i, 1]);
             }
             Debug.Log(sb.ToString());
         }
     }
 
-    public void sendScore(string name, int score)
+    public void sendScore(string name, int score, int level)
     {
-        string newjson = writeJSON(name, score);
+        string newjson = writeJSON(name, score, level);
         newjson = sanitizeString(newjson);
         sendPOSTRequest(newjson);
     }
@@ -58,7 +57,7 @@ public class ScoreManagerScript : MonoBehaviour
         sendGETRequest();        
     }
 
-    public string[][][] getResponse()
+    public string[,,] getResponse()
     {
         Scoreboard s = JsonUtility.FromJson<Scoreboard>(mostRecentResponse);
         
@@ -68,23 +67,23 @@ public class ScoreManagerScript : MonoBehaviour
         string[] values2 = s.Scores2.Split(',');
         string[] names3 = s.Names3.Split(',');
         string[] values3 = s.Scores3.Split(',');
-        string[][][] scoreboard = string[3][names.Length][2];
+        string[,,] scoreboard = new string[3, 10, 2];
 
 
         for(int i = 0; i < 10; i++)
         {
-            scoreboard[0][i][0] = names1[i];
-            scoreboard[0][i][1] = values1[i];
+            scoreboard[0, i, 0] = names1[i];
+            scoreboard[0, i, 1] = values1[i];
         }
         for(int i = 0; i < 10; i++)
         {
-            scoreboard[1][i][0] = names2[i];
-            scoreboard[1][i][1] = values2[i];
+            scoreboard[1, i, 0] = names2[i];
+            scoreboard[1, i, 1] = values2[i];
         }
         for(int i = 0; i < 10; i++)
         {
-            scoreboard[2][i][0] = names3[i];
-            scoreboard[2][i][1] = values3[i];
+            scoreboard[2, i, 0] = names3[i];
+            scoreboard[2, i, 1] = values3[i];
         }
         return scoreboard;
     }
@@ -95,14 +94,17 @@ public class ScoreManagerScript : MonoBehaviour
         return text.Replace("\r", "").Replace("\n", "");
     }
 
-    string writeJSON(string name, int score)
+    string writeJSON(string name, int score, int level)
     {
         StringBuilder sb = new StringBuilder();
         sb.Append("{\"Name\":\"");
         sb.Append(name);
         sb.Append("\",\"Score\":");
         sb.Append(score);
+        sb.Append(",\"Level\":");
+        sb.Append(level);
         sb.Append("}");
+        Debug.Log(sb.ToString());
         return sb.ToString();
 
     }
@@ -112,7 +114,6 @@ public class ScoreManagerScript : MonoBehaviour
     void sendGETRequest()
     {
         StartCoroutine(getRequest(url));
-        //Debug.Log(mostRecentResponse);
     }
 
     void sendPOSTRequest(string json)
