@@ -35,7 +35,7 @@ public class EnterButtonScript : MonoBehaviour
         Debug.Log("Enter pressed.");
         int level = timeManager.getLevel();
         int sccore = timeManager.getTimeScore();
-        string name = value;
+        string scoreName = this.name;
     }
 
     public void OnInputFieldValueChanged(string value)
