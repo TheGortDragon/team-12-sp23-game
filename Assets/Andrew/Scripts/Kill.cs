@@ -9,7 +9,7 @@ public class Kill : MonoBehaviour
     public float outOfBounds;
     public GameObject winCon;
     public TimeManagerScript timeManager;
-    public AudioSource winGame;
+    //public AudioSource winGame;
     public AudioSource loseGame;
     [SerializeField]
     private float distanceToWin;
@@ -46,13 +46,12 @@ public class Kill : MonoBehaviour
         );
         if (distanceToWinCon <= distanceToWin)
         {
-            Debug.Log("close to flag");
-            playWinSound();
-            bounce.resetPlayer();
+            //Debug.Log("close to flag");
+           // player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
             //timeManager.timeStop();
             
-            StartCoroutine(GameObject.Find("Fade").GetComponent<DrawMap>().FadeOut());
-            timeManager.timeStart();
+            //StartCoroutine(GameObject.Find("Fade").GetComponent<DrawMap>().FadeOut());
+            //timeManager.timeStart();
 
             //level end
         }
@@ -66,9 +65,13 @@ public class Kill : MonoBehaviour
         // }
     }
 
-    public void playWinSound()
-    {
-        winGame.Play();
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.tag == "Win_flag") {
+            player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+
+            StartCoroutine(GameObject.Find("Fade").GetComponent<DrawMap>().FadeOut());
+            timeManager.timeStop();
+        }
     }
 
     public void playLoseSound()

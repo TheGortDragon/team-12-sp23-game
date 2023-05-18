@@ -39,8 +39,10 @@ public class PauseMenu : MonoBehaviour
         {
             if (a.playOnAwake)
             {
-                a.Play();
+                //a.Play();
+                
             }
+            a.UnPause();
 
         }
         //unpause 

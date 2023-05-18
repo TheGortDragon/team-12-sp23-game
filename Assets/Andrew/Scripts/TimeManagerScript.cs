@@ -17,17 +17,18 @@ public class TimeManagerScript : MonoBehaviour
         tmp = GameObject.Find("TimeText");
         tmp_text = tmp.GetComponent<TextMeshProUGUI>();
         timeStart();
-        DontDestroyOnLoad(this.gameObject);
+        //DontDestroyOnLoad(this.gameObject);
     }
 
     // Update is called once per frame
     void Update()
     {
         int currTime = (int) (Time.time * 1000) - startTime;
-        Debug.Log("currTime is " + currTime);
+        //Debug.Log("currTime is " + currTime);
         string formattedTime = getFormattedTime(currTime);
-        Debug.Log("formattedTime is " + formattedTime);
-        tmp_text.text = formattedTime;
+        //Debug.Log("formattedTime is " + formattedTime);
+        if (endTime == 0)
+            tmp_text.text = formattedTime;
         
     }
 
