@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,15 +12,22 @@ public class EnterButtonScript : MonoBehaviour
     TimeManagerScript timeManager = null;
     public TMP_InputField input = null;
     string name = "";
+    bool foundManagers = true;
     // Start is called before the first frame update
     void Start()
     {
-        scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
-        timeManager = GameObject.Find("TimeManager").GetComponent<TimeManagerScript>();
+        try{
+            scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
+            timeManager = GameObject.Find("TimeManager").GetComponent<TimeManagerScript>();
+        } catch(NullReferenceException e)
+        {
+            foundManagers = false;
+            Debug.Log("Could not find one of the managers.");
+        }
         Button btn = GetComponent<Button>();
         input = GameObject.Find("NameEntry").GetComponent<TMP_InputField>();
 		btn.onClick.AddListener(TaskOnClick);
-        Debug.Log(GameObject.Find("NameEntry"));
+        //Debug.Log(GameObject.Find("NameEntry"));
         input.onValueChanged.AddListener(OnInputFieldValueChanged);
         
     }
@@ -33,9 +41,17 @@ public class EnterButtonScript : MonoBehaviour
     public void TaskOnClick()
     {
         Debug.Log("Enter pressed.");
-        int level = timeManager.getLevel();
-        int sccore = timeManager.getTimeScore();
-        string scoreName = this.name;
+        if(foundManagers)
+        {
+            int level = timeManager.getLevel();
+            int score = timeManager.getTimeScore();
+            string scoreName = this.name;
+            scoreManager.sendScore(scoreName, score, level);
+        }
+        else
+        {
+            Debug.Log("Manager not available.");
+        }
     }
 
     public void OnInputFieldValueChanged(string value)
