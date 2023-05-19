@@ -14,6 +14,7 @@ public class Bounce : MonoBehaviour {
     GameObject winCon;
 
     private float angle;
+    public static bool playerRespawned;
 
     // Start is called before the first frame update
     void Start() {
@@ -23,9 +24,14 @@ public class Bounce : MonoBehaviour {
         Asource = GetComponent<AudioSource>();
         jumpHoldDuration = 0;
         angle = 0;
+        playerRespawned = true;
     }
 
     void Update() {
+        Debug.Log(rb2.velocity);
+        if (Mathf.Abs(rb2.velocity.x) > .01f) {
+            playerRespawned = false;
+        }
         jumpBoost = jumpHoldDuration > 0;
         if (jumpBoost) {
             jumpHoldDuration -= Time.deltaTime;
@@ -68,5 +74,6 @@ public class Bounce : MonoBehaviour {
         transform.position = new Vector3(0, -.8f, 0);
         rb2.velocity = Vector2.zero;
         angle = 0;
+        playerRespawned = true;
     }
 }
