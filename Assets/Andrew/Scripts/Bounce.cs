@@ -28,7 +28,6 @@ public class Bounce : MonoBehaviour {
     }
 
     void Update() {
-        Debug.Log(rb2.velocity);
         if (Mathf.Abs(rb2.velocity.x) > .01f) {
             playerRespawned = false;
         }
