@@ -17,14 +17,16 @@ public class ScoreboardLoadScript : MonoBehaviour
 
     public TMP_Text namesText = null;
     public TMP_Text scoresText = null;
+    public TMP_Text levelText = null;
 
     // Start is called before the first frame update
     void Start()
     {
         try
         {
-            namesText = GameObject.Find("Names").GetComponent<TextMeshProUGUI>();;
-            scoresText = GameObject.Find("Scores").GetComponent<TextMeshProUGUI>();;
+            namesText = GameObject.Find("Names").GetComponent<TextMeshProUGUI>();
+            scoresText = GameObject.Find("Scores").GetComponent<TextMeshProUGUI>();
+            levelText = GameObject.Find("Level").GetComponent<TextMeshProUGUI>();
             scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManagerScript>();
             scoreManager.getScores();
         } catch(NullReferenceException e)
@@ -101,6 +103,11 @@ public class ScoreboardLoadScript : MonoBehaviour
         return scoresForLevel;
     }
 
+    void setText(int level)
+    {
+        levelText.text = "Scores - Level " + level.ToString();
+    }
+
     public void nextPage()
     {
         curLevel++;
@@ -108,6 +115,7 @@ public class ScoreboardLoadScript : MonoBehaviour
         {
             curLevel = 1;
         }
+        setText(curLevel);
         loadScores(curLevel);
 
     }
@@ -119,6 +127,7 @@ public class ScoreboardLoadScript : MonoBehaviour
         {
             curLevel = LEVEL_COUNT;
         }
+        setText(curLevel);
         loadScores(curLevel);
     }
 }
