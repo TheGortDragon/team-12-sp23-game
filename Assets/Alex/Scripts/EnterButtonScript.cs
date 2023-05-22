@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class EnterButtonScript : MonoBehaviour
@@ -47,6 +48,7 @@ public class EnterButtonScript : MonoBehaviour
             int score = timeManager.getTimeScore();
             string scoreName = this.name;
             scoreManager.sendScore(scoreName, score, level);
+            SceneManager.LoadScene(0);
         }
         else
         {

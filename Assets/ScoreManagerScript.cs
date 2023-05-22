@@ -47,6 +47,15 @@ public class ScoreManagerScript : MonoBehaviour
         */
     }
 
+    public bool responseValid()
+    {
+        if(mostRecentResponse.Equals(""))
+        {
+            return false;
+        }
+        return true;
+    }
+
     public void sendScore(string name, int score, int level)
     {
         string newjson = writeJSON(name, score, level);
