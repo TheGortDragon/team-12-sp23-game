@@ -17,10 +17,17 @@ public class square_enemy : MonoBehaviour
     public float threshold = .05f;
     public enemy_spawner spawner;
 
-    public float speed = 5f;
+    [SerializeField]
+    private float speed = 5f;
     public float distance;
     private float leftBound;
     private float rightBound;
+
+    [SerializeField]
+    private float lowestPoint = 0;
+
+    [SerializeField]
+    private float highestPoint = 0;
 
     // private int direction = 1;
     private bool goingDown = false;
@@ -53,7 +60,7 @@ public class square_enemy : MonoBehaviour
 
     void Update()
     {
-        if (transform.position.y < -100 || transform.position.y > 20)
+        if (transform.position.y <= lowestPoint || transform.position.y >= highestPoint)
         {
             spawner.minusEnemy();
             Destroy(gameObject);
@@ -142,6 +149,14 @@ public class square_enemy : MonoBehaviour
             Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collision.collider);
         }
         if (collision.gameObject.CompareTag("enemy"))
+        {
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collision.collider);
+        }
+        if (collision.gameObject.CompareTag("Win_flag"))
+        {
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collision.collider);
+        }
+        if (collision.gameObject.CompareTag("rolling_enemy"))
         {
             Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collision.collider);
         }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6983274553052295192}
   - component: {fileID: 6983274553052295196}
   - component: {fileID: 2342640059568111411}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: square_enemy
   m_TagString: enemy
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!61 &6983274553052295192
 BoxCollider2D:
@@ -151,11 +151,15 @@ MonoBehaviour:
   hero: {fileID: 0}
   square_enemy_GO: {fileID: 6983274553052295193}
   movement: {x: 0, y: 0}
-  waypoints: []
+  waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
   threshold: 1
   spawner: {fileID: 0}
   speed: 5
   distance: 5
+  lowestPoint: -100
+  highestPoint: 100
   gravityScale: 45
   unitsToHero: 0.1
 --- !u!95 &2342640059568111411
