@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Kill : MonoBehaviour
 {
@@ -71,6 +72,7 @@ public class Kill : MonoBehaviour
 
             StartCoroutine(GameObject.Find("Fade").GetComponent<DrawMap>().FadeOut());
             timeManager.timeStop();
+            SceneManager.LoadScene("WinScreen", LoadSceneMode.Single);
         }
     }
 
