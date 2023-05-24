@@ -23,7 +23,7 @@ import com.sun.net.httpserver.Headers;
 public class ScoreServer
 {
     public static final int MAX_SCORES = 10;
-    public static final int LEVEL_COUNT = 3;
+    public static final int LEVEL_COUNT = 4;
     private ArrayList<ArrayList<ComparableScore>> scores = new ArrayList<ArrayList<ComparableScore>>();
     //private ArrayList<ComparableScore> scores = new ArrayList<ComparableScore>();
 
