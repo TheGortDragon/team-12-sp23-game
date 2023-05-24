@@ -50,6 +50,6 @@ public class DrawMap : MonoBehaviour {
         }
         rect.localPosition = Vector3.zero;
         yield return new WaitForSeconds(1f);
-        SceneManager.LoadScene("DavidTest");//main menu
+        SceneManager.LoadScene("WinScreen", LoadSceneMode.Single);
     }
 }

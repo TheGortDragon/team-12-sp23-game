@@ -72,7 +72,6 @@ public class Kill : MonoBehaviour
 
             StartCoroutine(GameObject.Find("Fade").GetComponent<DrawMap>().FadeOut());
             timeManager.timeStop();
-            SceneManager.LoadScene("WinScreen", LoadSceneMode.Single);
         }
     }
 
