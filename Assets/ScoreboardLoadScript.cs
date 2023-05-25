@@ -12,7 +12,7 @@ public class ScoreboardLoadScript : MonoBehaviour
     bool scoresRetrieved = false;
 
     public int curLevel = 1;
-    public const int LEVEL_COUNT = 3;
+    public const int LEVEL_COUNT = 4;
     public const int SCORE_COUNT = 10;
 
     public TMP_Text namesText = null;
@@ -92,6 +92,7 @@ public class ScoreboardLoadScript : MonoBehaviour
         return sb.ToString();
     }
 
+    //deprecated DONT USE
     string[,] getScoresForLevel(int level)
     {
         string[,] scoresForLevel = new string[10, 2];

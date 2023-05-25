@@ -9,7 +9,7 @@ public class ScoreManagerScript : MonoBehaviour
     public string url = "associated-gr.at.ply.gg:53538/scores";
     public string testJSON = "{\"Name\":\"Alex\",\"Score\":234846}";
     public string mostRecentResponse = "";
-    public const int LEVEL_COUNT = 3; 
+    public const int LEVEL_COUNT = 4; 
 
     // Start is called before the first frame update
     void Start()
@@ -78,7 +78,9 @@ public class ScoreManagerScript : MonoBehaviour
         string[] values2 = s.Scores2.Split(',');
         string[] names3 = s.Names3.Split(',');
         string[] values3 = s.Scores3.Split(',');
-        string[,,] scoreboard = new string[3, 10, 2];
+        string[] names4 = s.Names4.Split(',');
+        string[] values4 = s.Scores4.Split(',');
+        string[,,] scoreboard = new string[4, 10, 2];
 
 
         for(int i = 0; i < 10; i++)
@@ -95,6 +97,11 @@ public class ScoreManagerScript : MonoBehaviour
         {
             scoreboard[2, i, 0] = names3[i];
             scoreboard[2, i, 1] = values3[i];
+        }
+        for(int i = 0; i < 10; i++)
+        {
+            scoreboard[3, i, 0] = names4[i];
+            scoreboard[3, i, 1] = values4[i];
         }
         return scoreboard;
     }
@@ -202,4 +209,6 @@ public class Scoreboard
     public string Scores2;
     public string Names3;
     public string Scores3;
+    public string Names4;
+    public string Scores4;
 }
