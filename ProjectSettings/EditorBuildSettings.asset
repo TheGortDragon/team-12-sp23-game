@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Alex/WinScreen.unity
     guid: e042046be15a2bf47bb8cf22160aa24c
+  - enabled: 1
+    path: Assets/Andrew/Levels/Level 2.unity
+    guid: adcfe7affa1c68e48a794b59efd76dc3
   m_configObjects: {}
