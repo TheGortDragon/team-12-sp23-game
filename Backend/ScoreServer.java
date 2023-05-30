@@ -37,7 +37,7 @@ public class ScoreServer
         {
             if(args[0].equals("clear"))
             {
-                for(int i = 1; i <= ScoreServer.LEVEL_COUNT; i++)
+                for(int i = 0; i < ScoreServer.LEVEL_COUNT; i++)
                 {
                     ss.clearScoresOnFile(i);
                 }
