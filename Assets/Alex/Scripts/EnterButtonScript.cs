@@ -49,6 +49,7 @@ public class EnterButtonScript : MonoBehaviour
             string scoreName = this.name;
             scoreManager.sendScore(scoreName, score, level);
             //go to next level scene
+            SceneManager.LoadScene("ScoreboardScreen", LoadSceneMode.Single);
         }
         else
         {

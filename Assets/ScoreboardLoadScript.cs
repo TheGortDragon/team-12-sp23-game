@@ -131,4 +131,15 @@ public class ScoreboardLoadScript : MonoBehaviour
         setText(curLevel);
         loadScores(curLevel);
     }
+
+    public void setPage(int page)
+    {
+        if(page > LEVEL_COUNT || page < 0)
+        {
+            //problem
+        }
+        curLevel = page;
+        setText(curLevel);
+        loadScores(curLevel);
+    }
 }

@@ -72,36 +72,37 @@ public class ScoreManagerScript : MonoBehaviour
     {
         Scoreboard s = JsonUtility.FromJson<Scoreboard>(mostRecentResponse);
         
+        string[] names0 = s.Names0.Split(',');
+        string[] values0 = s.Scores0.Split(',');
         string[] names1 = s.Names1.Split(',');
         string[] values1 = s.Scores1.Split(',');
         string[] names2 = s.Names2.Split(',');
         string[] values2 = s.Scores2.Split(',');
         string[] names3 = s.Names3.Split(',');
         string[] values3 = s.Scores3.Split(',');
-        string[] names4 = s.Names4.Split(',');
-        string[] values4 = s.Scores4.Split(',');
+        
         string[,,] scoreboard = new string[4, 10, 2];
 
 
         for(int i = 0; i < 10; i++)
         {
-            scoreboard[0, i, 0] = names1[i];
-            scoreboard[0, i, 1] = values1[i];
+            scoreboard[0, i, 0] = names0[i];
+            scoreboard[0, i, 1] = values0[i];
         }
         for(int i = 0; i < 10; i++)
         {
-            scoreboard[1, i, 0] = names2[i];
-            scoreboard[1, i, 1] = values2[i];
+            scoreboard[1, i, 0] = names1[i];
+            scoreboard[1, i, 1] = values1[i];
         }
         for(int i = 0; i < 10; i++)
         {
-            scoreboard[2, i, 0] = names3[i];
-            scoreboard[2, i, 1] = values3[i];
+            scoreboard[2, i, 0] = names2[i];
+            scoreboard[2, i, 1] = values2[i];
         }
         for(int i = 0; i < 10; i++)
         {
-            scoreboard[3, i, 0] = names4[i];
-            scoreboard[3, i, 1] = values4[i];
+            scoreboard[3, i, 0] = names3[i];
+            scoreboard[3, i, 1] = values3[i];
         }
         return scoreboard;
     }
@@ -203,12 +204,13 @@ public class Tuple<T1, T2>
 
 public class Scoreboard
 {
+    public string Names0;
+    public string Scores0;
     public string Names1;
     public string Scores1;
     public string Names2;
     public string Scores2;
     public string Names3;
     public string Scores3;
-    public string Names4;
-    public string Scores4;
+    
 }
