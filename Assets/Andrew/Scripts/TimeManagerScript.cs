@@ -17,7 +17,7 @@ public class TimeManagerScript : MonoBehaviour
         tmp = GameObject.Find("TimeText");
         tmp_text = tmp.GetComponent<TextMeshProUGUI>();
         timeStart();
-        //DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // Update is called once per frame

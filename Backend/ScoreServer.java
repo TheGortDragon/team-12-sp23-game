@@ -141,34 +141,34 @@ public class ScoreServer
         }
         for(int i = 0; i < LEVEL_COUNT; i++)
         {
-            recallFromFile(i + 1);
+            recallFromFile(i);
         }
     }
 
     public void addScore(String name, int score, int level)
     {
         ComparableScore newScore = new ComparableScore(name, score, level);
-        scores.get(level - 1).add(newScore);
-        Collections.sort(scores.get(level - 1)); //Collections.sort(scores, Collections.reverseOrder()); if order is reversed
+        scores.get(level).add(newScore);
+        Collections.sort(scores.get(level)); //Collections.sort(scores, Collections.reverseOrder()); if order is reversed
     }
 
     public void addScore(ComparableScore score)
     {
-        scores.get(score.getLevel() - 1).add(score);
-        ArrayList<ComparableScore> theseScores = scores.get(score.getLevel() - 1);
+        scores.get(score.getLevel()).add(score);
+        ArrayList<ComparableScore> theseScores = scores.get(score.getLevel());
         Collections.sort(theseScores);
-        scores.set(score.getLevel() - 1, theseScores);
+        scores.set(score.getLevel(), theseScores);
         
     }
 
     public String getNames(int level)
     {
         StringBuilder sb = new StringBuilder();
-        sb.append(scores.get(level - 1).get(0).getName());
+        sb.append(scores.get(level).get(0).getName());
         for(int i = 1; i < MAX_SCORES; i++)
         {
             sb.append(",");
-            sb.append(scores.get(level - 1).get(i).getName());
+            sb.append(scores.get(level).get(i).getName());
         }
         return sb.toString();
     }
@@ -177,11 +177,11 @@ public class ScoreServer
     public String getScores(int level)
     {
         StringBuilder sb = new StringBuilder();
-        sb.append(scores.get(level - 1).get(0).getScoreText());
+        sb.append(scores.get(level).get(0).getScoreText());
         for(int i = 1; i < MAX_SCORES; i++)
         {
             sb.append(",");
-            sb.append(scores.get(level - 1).get(i).getScoreText());
+            sb.append(scores.get(level).get(i).getScoreText());
         }
         return sb.toString();
     }
@@ -190,11 +190,11 @@ public class ScoreServer
     public void displayScores(int level)
     {
         StringBuilder sb = new StringBuilder();
-        sb.append(scores.get(level - 1).get(0).getDisplayString());
+        sb.append(scores.get(level).get(0).getDisplayString());
         for(int i = 1; i < MAX_SCORES; i++)
         {
             sb.append("\n");
-            sb.append(scores.get(level - 1).get(i).getDisplayString());
+            sb.append(scores.get(level).get(i).getDisplayString());
             
         }
         System.out.println(sb.toString());
@@ -204,7 +204,7 @@ public class ScoreServer
     {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        for(int i = 1; i <= LEVEL_COUNT; i++)
+        for(int i = 0; i < LEVEL_COUNT; i++)
         {
             sb.append("\n\"Names" + i + "\":\"");
             sb.append(getNames(i));
@@ -214,6 +214,7 @@ public class ScoreServer
         }
         sb.setLength(sb.length() - 1);
         sb.append("\n}");
+        System.out.println(sb.toString());
         return sb.toString();
     }
 
@@ -244,11 +245,11 @@ public class ScoreServer
             file.createNewFile(); //create the file if it does not exist
             FileWriter fw = new FileWriter(file, false);
             PrintWriter pw = new PrintWriter(fw);
-            pw.append(scores.get(level - 1).get(0).getStorageString());
-            for(int i = 1; i < scores.get(level - 1).size(); i++)
+            pw.append(scores.get(level).get(0).getStorageString());
+            for(int i = 1; i < scores.get(level).size(); i++)
             {
                 pw.append("\n");
-                pw.append(scores.get(level - 1).get(i).getStorageString());
+                pw.append(scores.get(level).get(i).getStorageString());
             }
             pw.close();
             fw.close();
@@ -264,7 +265,7 @@ public class ScoreServer
         //scores.clear();
         for(int i = 0; i < LEVEL_COUNT; i++)
         {
-            scores.set(level - 1, new ArrayList<ComparableScore>());
+            scores.set(level, new ArrayList<ComparableScore>());
         }
         for(int i = 0; i < MAX_SCORES; i++)
         {
@@ -275,11 +276,11 @@ public class ScoreServer
             file.createNewFile(); //create the file if it does not exist
             FileWriter fw = new FileWriter(file, false);
             PrintWriter pw = new PrintWriter(fw);
-            pw.append(scores.get(level - 1).get(0).getStorageString());
+            pw.append(scores.get(level).get(0).getStorageString());
             for(int i = 1; i < MAX_SCORES; i++)
             {
                 pw.append("\n");
-                pw.append(scores.get(level - 1).get(i).getStorageString());
+                pw.append(scores.get(level).get(i).getStorageString());
             }
             pw.close();
             fw.close();
@@ -303,7 +304,7 @@ public class ScoreServer
                 int score = Integer.valueOf(data[1]);
                 newScores.add(new ComparableScore(name, score, level));
             }
-            scores.set(level - 1, newScores);
+            scores.set(level, newScores);
             s.close();
 
         } catch(IOException e)
