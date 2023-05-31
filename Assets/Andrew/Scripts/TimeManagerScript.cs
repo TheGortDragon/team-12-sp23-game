@@ -8,16 +8,16 @@ public class TimeManagerScript : MonoBehaviour
 {
     public GameObject tmp = null;
     public TMP_Text tmp_text = null;
-    public static int startTime;
-    public static int endTime;
-    public static int mostRecentLevel;
+    public int startTime;
+    public int endTime;
+    public int mostRecentLevel;
     // Start is called before the first frame update
     void Start()
     {
         tmp = GameObject.Find("TimeText");
         tmp_text = tmp.GetComponent<TextMeshProUGUI>();
         timeStart();
-        //DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // Update is called once per frame
@@ -86,5 +86,10 @@ public class TimeManagerScript : MonoBehaviour
     public int getLevel()
     {
         return mostRecentLevel;
+    }
+
+    public void kill()
+    {
+        Destroy(gameObject);
     }
 }

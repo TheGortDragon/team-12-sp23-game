@@ -46,6 +46,7 @@ public class EnterButtonScript : MonoBehaviour
         {
             int level = timeManager.getLevel();
             int score = timeManager.getTimeScore();
+            timeManager.kill();
             string scoreName = this.name;
             scoreManager.sendScore(scoreName, score, level);
             //go to next level scene
