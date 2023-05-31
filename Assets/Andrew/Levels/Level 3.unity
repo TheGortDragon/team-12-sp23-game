@@ -3364,6 +3364,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tmp: {fileID: 0}
   tmp_text: {fileID: 0}
+  startTime: 0
+  endTime: 0
+  mostRecentLevel: 0
 --- !u!4 &1285785137
 Transform:
   m_ObjectHideFlags: 0
@@ -3391,7 +3394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1371e2c66848aff45adda76c23796d40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 4
+  level: 3
 --- !u!1 &1299848029
 GameObject:
   m_ObjectHideFlags: 0
