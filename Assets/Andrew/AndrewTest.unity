@@ -229,7 +229,6 @@ MonoBehaviour:
   outOfBounds: -20
   winCon: {fileID: 0}
   timeManager: {fileID: 0}
-  winGame: {fileID: 1299848030}
   loseGame: {fileID: 136417697}
   distanceToWin: 1
 --- !u!58 &30980678
@@ -3826,43 +3825,20 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Welcome to the Controls Menu of Pogo Panic!
+  m_text: 'Move left: Press "A"
+
+    Move right: Press "D"
+
+    Jump: Press Spacebar
+
+    Pause:
+    Press Left Ctrl
+
+    Reset level: Press ESC
 
 
-    A: Press the "A" key
-    to move left. Use this control to shift your character''s position towards the
-    left side of the screen.
-
-
-
-    D: Press the "D" key to move right. This control
-    enables you to shift your character''s position towards the right side of the
-    screen.
-
-
-
-    Spacebar: Press the "Spacebar" to make your character jump. Use
-    this control to overcome obstacles, reach higher platforms, or simply enjoy bouncing
-    around!
-
-
-
-    Left Ctrl: Press the "Left Ctrl" key to pause the game. When you
-    need a momentary break or want to check something quickly, use this control to
-    freeze the game temporarily.
-
-
-
-    ESC: Press the "ESC" key to reset your character
-    to the beginning of the current level. This control comes in handy when you want
-    to restart the level from scratch or if you get stuck.
-
-
-
-    Remember, mastering
-    these controls is essential for successfully navigating through each level and
-    achieving high scores. Enjoy the game and have a hopping good time on your Pogo
-    Panic adventure!'
+    Master these controls to navigate
+    levels and get high scores. Enjoy Pogo Panic!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -3880,7 +3856,7 @@ MonoBehaviour:
     topRight: {r: 1, g: 1, b: 1, a: 1}
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
-  m_fontColorGradientPreset: {fileID: 11400000, guid: 3b4b96d1de397784895bf15040c816f9, type: 2}
+  m_fontColorGradientPreset: {fileID: 11400000, guid: 4d64db3af83051e4087c3747fe770c80, type: 2}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
@@ -3889,15 +3865,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28
-  m_fontSizeBase: 28
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -3956,7 +3932,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -82.599, y: -62}
+  m_AnchoredPosition: {x: 0, y: 52}
   m_SizeDelta: {x: 1665.2546, y: 882.7381}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1676272184
@@ -4717,6 +4693,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d204c37a135cd4b41ae4a9ee8b1b8497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  theme: {fileID: 0}
+  win: {fileID: 0}
 --- !u!114 &2110875546
 MonoBehaviour:
   m_ObjectHideFlags: 0

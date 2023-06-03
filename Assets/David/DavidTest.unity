@@ -158,7 +158,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 15, y: 58}
+  m_AnchoredPosition: {x: 0.0000085831, y: 292}
   m_SizeDelta: {x: 1840.7874, y: 300.488}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &127965024
@@ -181,16 +181,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Website, Menu/Pause, SFX - David Oganov
-
-    Enemies, Enemy AI, Enemy
-    Animations - Jesus Celestino
-
-    Leaderboard connecting to online server, Time
-    system, Score system- Alex Hilwa
-
-    Player, Player Animations, Level Structure
-    - Andrew Howell'
+  m_text: "David Oganov: \nWebsite, Menu/Pause, SFX, Scene Management, Color Scheme,
+    Debugging \n\nJesus Celestino: \nEnemies, Enemy AI, Enemy Animations, Website,
+    Debugging\n\nAlex Hilwa:\nLeaderboard-Server Creation/Connection, Time System,
+    Score System, Debugging\n\nAndrew Howell:\nPlayer Animations, Level Structure,
+    Pogo Mechanic,  Art, Trailer"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
@@ -253,7 +248,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -31.659546, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3876,7 +3871,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 3.1811981, y: 275}
+  m_AnchoredPosition: {x: -3.1811066, y: 502}
   m_SizeDelta: {x: -6.362259, y: -260.03632}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1964917344
@@ -4052,7 +4047,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 515, y: -144.89}
+  m_AnchoredPosition: {x: 816, y: -258}
   m_SizeDelta: {x: 126.5582, y: 42.8264}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2095470044
