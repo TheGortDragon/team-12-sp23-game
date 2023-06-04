@@ -2188,7 +2188,7 @@ MonoBehaviour:
     Jump: Press Spacebar
 
     Pause:
-    Press Left Ctrl
+    Press "P"
 
     Reset level: Press ESC
 
@@ -4519,7 +4519,7 @@ MonoBehaviour:
     Jump: Press Spacebar
 
     Pause:
-    Press Left Ctrl
+    Press "P"
 
     Reset level: Press ESC'
   m_isRightToLeft: 0
